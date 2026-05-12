@@ -1,5 +1,6 @@
 # TerraMind Rescue Planet
-<img width="1774" height="887" alt="27538" src="https://github.com/user-attachments/assets/c421b02a-e598-425b-80d4-d74fdaa79594" />
+<img width="1536" height="1024" alt="27539" src="https://github.com/user-attachments/assets/7b12b03e-3f48-49fc-b846-9a3e0e189676" />
+
 
 
 **Offline multimodal AI for disaster survival, terrain risk analysis, and solar-powered resilience.**
