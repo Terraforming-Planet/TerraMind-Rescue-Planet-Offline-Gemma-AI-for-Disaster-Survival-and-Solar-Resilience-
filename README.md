@@ -1,68 +1,78 @@
-# TerraMind Rescue Planet
-<img width="1536" height="1024" alt="27539" src="https://github.com/user-attachments/assets/7b12b03e-3f48-49fc-b846-9a3e0e189676" />
+# TerraMind Rescue Planet: Offline Gemma AI for Disaster Survival and Solar Resilience
 
+A hackathon-ready MVP showing one complete offline-first workflow:
 
+**image upload → AI analysis → danger result → emergency instructions → JSON report**
 
-**Offline multimodal AI for disaster survival, terrain risk analysis, and solar-powered resilience.**
+## Project Structure
 
-TerraMind Rescue Planet is a Gemma-powered AI assistant designed for crisis situations where internet access may be unavailable. The system analyzes images of flooded roads, damaged energy infrastructure, smoke, fire, unstable terrain, snow-covered areas, and solar-powered vehicles or panels. It then generates clear safety instructions, a structured emergency report, and multilingual guidance for people working in disaster zones.
+```text
+frontend/   # React + Vite + Tailwind cinematic dashboard
+backend/    # FastAPI API with /analyze mock Gemma endpoint
+demo/       # demo scripts and scenario placeholders
+docs/       # architecture and product notes
+assets/     # screenshots and static media
+```
 
-## Core idea
-<img width="1024" height="1536" alt="27535" src="https://github.com/user-attachments/assets/ea1c4b58-85f4-439a-87e0-3eae9bde04b8" />
-<img width="1254" height="1254" alt="27540" src="https://github.com/user-attachments/assets/32ce9ead-f7a1-4b3b-8daf-ae83cc98b707" />
+## Architecture Overview
 
-During floods, blackouts, fires, landslides, snowstorms, and energy failures, people often need fast decisions without stable network access. TerraMind Rescue Planet uses local/edge AI to analyze visual risk and support practical action.
+- **Frontend (mobile-first):** Dark cinematic disaster console for upload + result visualization.
+- **Backend (offline-ready):** Local FastAPI service exposing JSON `/analyze` response.
+- **AI layer (mock now):** `gemma_mock.py` returns structured Gemma-style inference payload.
 
-## Main workflow
+## MVP Workflow
 
-1. User uploads or captures an image.
-2. Gemma analyzes the visual scene.
-3. The system detects hazards and estimates risk level.
-4. The assistant generates safety instructions.
-5. The result is returned as structured JSON.
-6. The report is translated into multiple languages.
-7. Optional solar intelligence helps choose the best sunny parking/route location for PV-powered vehicles or emergency equipment.
+1. User uploads a field image in frontend dashboard.
+2. Frontend triggers analysis flow (currently mock JSON).
+3. Danger level + hazards + solar score cards render instantly.
+4. Emergency instruction panel displays prioritized actions.
+5. JSON report is printed for handoff/logging.
 
-## Demo scenarios
+## Frontend Setup
 
-### 1. Flood Rescue
-Image of a flooded street, valley, or low terrain.  
-The AI detects water risk, possible electrical danger, blocked access, and recommends safe movement to higher ground.
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-### 2. Fire and Smoke Detection
-Image of smoke, fire, or damaged surroundings.  
-The AI identifies fire risk, smoke exposure, direction of evacuation, and emergency steps.
+## Backend Setup
 
-### 3. Damaged Power Infrastructure
-Image of a broken pole, cable, grid element, or electrical installation.  
-The AI warns users to keep distance and prepares a report for emergency services.
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
 
-### 4. Solar Route and Parking Assistant
-Image of a solar vehicle, PV-covered car, parking area, mountain valley, or shadowed terrain.  
-The AI estimates sunlight exposure, shadow risk, cloud/terrain impact, and recommends better solar positioning.
+## API Example
 
-## Why Gemma
+### Endpoint
 
-Gemma enables multimodal reasoning, local deployment, and structured generation. In this project, Gemma is used as the intelligence layer for visual understanding, emergency reasoning, report generation, and multilingual communication.
+`POST /analyze`
 
-## Social impact
+### Example Response
 
-TerraMind Rescue Planet is designed for:
-- disaster resilience,
-- rural and remote areas,
-- blackout response,
-- climate adaptation,
-- emergency field teams,
-- solar-powered mobility,
-- communities without reliable internet access.
+```json
+{
+  "scene_summary": "Flooded electrical street",
+  "danger_level": "high",
+  "main_hazards": ["flood", "electrical risk"],
+  "recommended_actions": ["avoid water", "move uphill"],
+  "solar_assessment": {
+    "solar_score": 82
+  }
+}
+```
 
-## Project goal
+## Screenshot Placeholder
 
-This hackathon demo focuses on one complete workflow:
+Add demo screenshots here:
 
-**image → hazard analysis → risk level → action plan → emergency report → translation**
+- `assets/dashboard-mobile.png`
+- `assets/analysis-results.png`
 
-The goal is not to build a huge system, but to show a real, practical, offline-ready AI workflow that can help people survive and make better decisions during emergencies.
-<img width="1536" height="1024" alt="27578" src="https://github.com/user-attachments/assets/3b578a86-ee65-4917-99b8-c426fd7450a8" />
-<img width="1536" height="1024" alt="27577" src="https://github.com/user-attachments/assets/5123ce86-45c5-461e-983e-806704e37adf" />
-<img width="1536" height="1024" alt="27576" src="https://github.com/user-attachments/assets/62110cae-8924-4b29-b4c5-b5d62189dd20" />
+## Notes
+
+- No auth, no database, no cloud dependency (by design).
+- Built to run fully local/offline for resilience scenarios.
+- Clean base structure ready for real Gemma model integration next.
