@@ -1,0 +1,37 @@
+{
+  "scene_summary": "A flooded street with possible blocked access and unclear ground conditions.",
+  "danger_level": "high",
+  "main_hazards": [
+    "flooded road",
+    "unknown water depth",
+    "possible hidden electrical risk"
+  ],
+  "terrain_risk": {
+    "flood": "high",
+    "fire_or_smoke": "low",
+    "electrical": "uncertain",
+    "landslide_or_snow": "low"
+  },
+  "recommended_actions": [
+    "Do not walk or drive through the water.",
+    "Move to higher ground.",
+    "Avoid touching metal objects or electrical infrastructure near the flooded area.",
+    "Report the location to emergency services."
+  ],
+  "solar_assessment": {
+    "relevant": false,
+    "solar_score": 0,
+    "shadow_risk": "uncertain",
+    "recommendation": "Solar analysis is not relevant for this emergency image."
+  },
+  "emergency_report": {
+    "title": "Flood risk detected",
+    "description": "The image shows a flooded access route. The water depth is unknown and may hide electrical or terrain hazards.",
+    "priority": "urgent"
+  },
+  "translations": {
+    "pl": "Nie wchod\u017a do wody. Przejd\u017a na wy\u017cszy teren i zg\u0142o\u015b zagro\u017cenie.",
+    "en": "Do not enter the water. Move to higher ground and report the hazard.",
+    "nl": "Ga het water niet in. Ga naar hoger terrein en meld het gevaar."
+  }
+}
