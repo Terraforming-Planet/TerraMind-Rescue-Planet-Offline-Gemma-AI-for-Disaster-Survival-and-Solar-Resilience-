@@ -63,3 +63,6 @@ This hackathon demo focuses on one complete workflow:
 **image → hazard analysis → risk level → action plan → emergency report → translation**
 
 The goal is not to build a huge system, but to show a real, practical, offline-ready AI workflow that can help people survive and make better decisions during emergencies.
+<img width="1536" height="1024" alt="27578" src="https://github.com/user-attachments/assets/3b578a86-ee65-4917-99b8-c426fd7450a8" />
+<img width="1536" height="1024" alt="27577" src="https://github.com/user-attachments/assets/5123ce86-45c5-461e-983e-806704e37adf" />
+<img width="1536" height="1024" alt="27576" src="https://github.com/user-attachments/assets/62110cae-8924-4b29-b4c5-b5d62189dd20" />
