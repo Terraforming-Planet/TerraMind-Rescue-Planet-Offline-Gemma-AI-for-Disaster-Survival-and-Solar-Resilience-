@@ -1,10 +1,14 @@
 # TerraMind Rescue Planet
+<img width="1774" height="887" alt="27538" src="https://github.com/user-attachments/assets/c421b02a-e598-425b-80d4-d74fdaa79594" />
+
 
 **Offline multimodal AI for disaster survival, terrain risk analysis, and solar-powered resilience.**
 
 TerraMind Rescue Planet is a Gemma-powered AI assistant designed for crisis situations where internet access may be unavailable. The system analyzes images of flooded roads, damaged energy infrastructure, smoke, fire, unstable terrain, snow-covered areas, and solar-powered vehicles or panels. It then generates clear safety instructions, a structured emergency report, and multilingual guidance for people working in disaster zones.
 
 ## Core idea
+<img width="1024" height="1536" alt="27535" src="https://github.com/user-attachments/assets/ea1c4b58-85f4-439a-87e0-3eae9bde04b8" />
+<img width="1254" height="1254" alt="27540" src="https://github.com/user-attachments/assets/32ce9ead-f7a1-4b3b-8daf-ae83cc98b707" />
 
 During floods, blackouts, fires, landslides, snowstorms, and energy failures, people often need fast decisions without stable network access. TerraMind Rescue Planet uses local/edge AI to analyze visual risk and support practical action.
 
