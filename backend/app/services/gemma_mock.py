@@ -1,11 +1,26 @@
-from app.models.schemas import AnalyzeResponse
+from app.models.schemas import AnalyzeResponse, TranslationMap
 
 
 def run_mock_analysis() -> AnalyzeResponse:
     return AnalyzeResponse(
-        scene_summary="Flooded electrical street",
-        danger_level="high",
-        main_hazards=["flood", "electrical risk"],
-        recommended_actions=["avoid water", "move uphill"],
-        solar_assessment={"solar_score": 82},
+        risk_level="HIGH",
+        hazard_type="Blocked drainage overflow",
+        confidence=0.94,
+        analysis="Flood and drainage overflow risk detected.",
+        alerts=[
+            "Water overflow detected",
+            "Possible erosion risk",
+            "Blocked water flow",
+        ],
+        actions=[
+            "Inspect drainage system",
+            "Remove blockage",
+            "Monitor water level",
+        ],
+        report="AI detected blocked drainage causing overflow and flood risk.",
+        translations=TranslationMap(
+            en="Flood risk detected.",
+            pl="Wykryto ryzyko powodzi.",
+            uk="Виявлено ризик повені.",
+        ),
     )

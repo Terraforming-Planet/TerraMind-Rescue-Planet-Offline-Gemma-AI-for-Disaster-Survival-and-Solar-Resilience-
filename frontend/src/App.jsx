@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { riskStyles, scenarioResults } from './mockData';
 
+const ANALYZE_API_URL = 'http://localhost:8000/analyze';
+
 const demoScenarios = [
   { key: 'low-water-level-risk', image: '/demo-images/low-water-level-risk.svg' },
   { key: 'healthy-water-balance', image: '/demo-images/healthy-water-balance.svg' },
@@ -9,20 +11,31 @@ const demoScenarios = [
 
 const translations = {
   en: {
-    title: 'TerraMind Rescue — Day 2 Frontend MVP', subtitle: 'Photo upload → AI mock analysis → risk panel → alerts → report → translations.', upload: 'Upload Image', demo: 'Demo Scenario', analyze: 'Analyze', pickFirst: 'Please upload an image or select a demo scenario.', result: 'Analysis Result', hazard: 'Hazard Type', risk: 'Risk Level', confidence: 'Confidence', analysis: 'Short Analysis', alerts: 'Emergency Alerts', actions: 'Recommended Actions', report: 'Generated Rescue / Environment Report',
+    title: 'TerraMind Rescue — Day 3 Backend Integration', subtitle: 'Photo upload → FastAPI backend → risk panel → alerts → report → translations.', upload: 'Upload Image', demo: 'Demo Scenario', analyze: 'Analyze', pickFirst: 'Please upload an image or select a demo scenario.', result: 'Analysis Result', hazard: 'Hazard Type', risk: 'Risk Level', confidence: 'Confidence', analysis: 'Short Analysis', alerts: 'Emergency Alerts', actions: 'Recommended Actions', report: 'Generated Rescue / Environment Report',
   },
   pl: {
-    title: 'TerraMind Rescue — MVP Frontendu Dzień 2', subtitle: 'Przesłanie zdjęcia → mock analizy AI → panel ryzyka → alerty → raport → tłumaczenia.', upload: 'Prześlij obraz', demo: 'Scenariusz demo', analyze: 'Analizuj', pickFirst: 'Najpierw prześlij obraz lub wybierz scenariusz demo.', result: 'Wynik analizy', hazard: 'Typ zagrożenia', risk: 'Poziom ryzyka', confidence: 'Pewność', analysis: 'Krótka analiza', alerts: 'Alerty awaryjne', actions: 'Zalecane działania', report: 'Wygenerowany raport ratunkowo-środowiskowy',
+    title: 'TerraMind Rescue — Integracja Backendu Dzień 3', subtitle: 'Przesłanie zdjęcia → backend FastAPI → panel ryzyka → alerty → raport → tłumaczenia.', upload: 'Prześlij obraz', demo: 'Scenariusz demo', analyze: 'Analizuj', pickFirst: 'Najpierw prześlij obraz lub wybierz scenariusz demo.', result: 'Wynik analizy', hazard: 'Typ zagrożenia', risk: 'Poziom ryzyka', confidence: 'Pewność', analysis: 'Krótka analiza', alerts: 'Alerty awaryjne', actions: 'Zalecane działania', report: 'Wygenerowany raport ratunkowo-środowiskowy',
   },
   uk: {
-    title: 'TerraMind Rescue — Frontend MVP День 2', subtitle: 'Завантаження фото → mock AI аналіз → панель ризику → сповіщення → звіт → переклади.', upload: 'Завантажити зображення', demo: 'Демо-сценарій', analyze: 'Аналізувати', pickFirst: 'Спочатку завантажте зображення або виберіть демо-сценарій.', result: 'Результат аналізу', hazard: 'Тип небезпеки', risk: 'Рівень ризику', confidence: 'Ймовірність', analysis: 'Короткий аналіз', alerts: 'Екстрені сповіщення', actions: 'Рекомендовані дії', report: 'Згенерований рятувально-екологічний звіт',
+    title: 'TerraMind Rescue — Інтеграція Бекенду День 3', subtitle: 'Завантаження фото → FastAPI бекенд → панель ризику → сповіщення → звіт → переклади.', upload: 'Завантажити зображення', demo: 'Демо-сценарій', analyze: 'Аналізувати', pickFirst: 'Спочатку завантажте зображення або виберіть демо-сценарій.', result: 'Результат аналізу', hazard: 'Тип небезпеки', risk: 'Рівень ризику', confidence: 'Ймовірність', analysis: 'Короткий аналіз', alerts: 'Екстрені сповіщення', actions: 'Рекомендовані дії', report: 'Згенерований рятувально-екологічний звіт',
   },
 };
+
+const toFrontendAnalysis = (payload) => ({
+  hazardType: payload.hazard_type,
+  riskLevel: payload.risk_level,
+  confidence: payload.confidence,
+  shortAnalysis: payload.analysis,
+  emergencyAlerts: payload.alerts,
+  recommendedActions: payload.actions,
+  report: payload.report,
+});
 
 export default function App() {
   const [language, setLanguage] = useState('en');
   const [selectedDemo, setSelectedDemo] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
   const [analysis, setAnalysis] = useState(null);
   const [status, setStatus] = useState('');
 
@@ -35,31 +48,59 @@ export default function App() {
     setSelectedDemo('');
 
     if (!selected) {
+      setSelectedFile(null);
       setPreviewUrl('');
       return;
     }
 
+    setSelectedFile(selected);
     setPreviewUrl(URL.createObjectURL(selected));
   };
 
   const onDemoSelect = (event) => {
     const key = event.target.value;
     setSelectedDemo(key);
+    setSelectedFile(null);
     setAnalysis(null);
     setStatus('');
     const scenario = demoScenarios.find((item) => item.key === key);
     setPreviewUrl(scenario ? scenario.image : '');
   };
 
-  const onAnalyze = () => {
+  const onAnalyze = async () => {
     if (!previewUrl) {
       setStatus(t.pickFirst);
       return;
     }
 
-    const mock = scenarioResults[selectedDemo] ?? scenarioResults['healthy-water-balance'];
-    setAnalysis(mock);
-    setStatus('');
+    if (!selectedFile) {
+      const mock = scenarioResults[selectedDemo] ?? scenarioResults['healthy-water-balance'];
+      setAnalysis(mock);
+      setStatus('Demo analysis loaded (offline mode).');
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      const response = await fetch(ANALYZE_API_URL, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Backend error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setAnalysis(toFrontendAnalysis(data));
+      setStatus('Backend analysis completed.');
+    } catch {
+      const fallback = scenarioResults[selectedDemo] ?? scenarioResults['blocked-drainage-overflow'];
+      setAnalysis(fallback);
+      setStatus('Backend offline. Showing fallback mock analysis.');
+    }
   };
 
   return (
