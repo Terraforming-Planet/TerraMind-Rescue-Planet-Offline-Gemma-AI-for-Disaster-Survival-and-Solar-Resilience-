@@ -1,37 +1,24 @@
 {
-  "scene_summary": "A flooded street with possible blocked access and unclear ground conditions.",
-  "danger_level": "high",
-  "main_hazards": [
-    "flooded road",
-    "unknown water depth",
-    "possible hidden electrical risk"
+  "risk_level": "HIGH",
+  "hazard_type": "Blocked drainage overflow",
+  "confidence": 0.94,
+  "analysis": "Flood and drainage overflow risk detected.",
+  "alerts": [
+    "Water overflow detected",
+    "Possible erosion risk",
+    "Blocked water flow"
   ],
-  "terrain_risk": {
-    "flood": "high",
-    "fire_or_smoke": "low",
-    "electrical": "uncertain",
-    "landslide_or_snow": "low"
-  },
-  "recommended_actions": [
-    "Do not walk or drive through the water.",
-    "Move to higher ground.",
-    "Avoid touching metal objects or electrical infrastructure near the flooded area.",
-    "Report the location to emergency services."
+  "actions": [
+    "Inspect drainage system",
+    "Remove blockage",
+    "Monitor water level"
   ],
-  "solar_assessment": {
-    "relevant": false,
-    "solar_score": 0,
-    "shadow_risk": "uncertain",
-    "recommendation": "Solar analysis is not relevant for this emergency image."
-  },
-  "emergency_report": {
-    "title": "Flood risk detected",
-    "description": "The image shows a flooded access route. The water depth is unknown and may hide electrical or terrain hazards.",
-    "priority": "urgent"
-  },
+  "report": "AI detected blocked drainage causing overflow and flood risk.",
   "translations": {
-    "pl": "Nie wchod\u017a do wody. Przejd\u017a na wy\u017cszy teren i zg\u0142o\u015b zagro\u017cenie.",
-    "en": "Do not enter the water. Move to higher ground and report the hazard.",
-    "nl": "Ga het water niet in. Ga naar hoger terrein en meld het gevaar."
-  }
+    "en": "Flood risk detected.",
+    "pl": "Wykryto ryzyko powodzi.",
+    "uk": "Виявлено ризик повені."
+  },
+  "offline_mode": true,
+  "model_note": "Mock Gemma-style analysis. Real Gemma multimodal inference not yet enabled."
 }

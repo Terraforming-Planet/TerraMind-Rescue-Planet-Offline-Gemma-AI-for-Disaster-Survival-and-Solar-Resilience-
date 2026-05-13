@@ -18,3 +18,5 @@ class AnalyzeResponse(BaseModel):
     actions: List[str]
     report: str
     translations: TranslationMap
+    offline_mode: bool
+    model_note: str

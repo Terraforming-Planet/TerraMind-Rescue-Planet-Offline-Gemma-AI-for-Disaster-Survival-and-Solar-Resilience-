@@ -23,4 +23,6 @@ def run_mock_analysis() -> AnalyzeResponse:
             pl="Wykryto ryzyko powodzi.",
             uk="Виявлено ризик повені.",
         ),
+        offline_mode=True,
+        model_note="Mock Gemma-style analysis. Real Gemma multimodal inference not yet enabled.",
     )

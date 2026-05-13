@@ -1,6 +1,10 @@
 # TerraMind Rescue Planet: Offline Gemma AI for Disaster Survival and Solar Resilience
 
-A hackathon-ready MVP showing one complete offline-first workflow:
+A hackathon-ready MVP showing one complete offline-first workflow.
+
+**Current MVP:** React + FastAPI + mock Gemma-style JSON.
+
+**Next step:** replace mock analysis with Gemma multimodal inference.
 
 **image upload → AI analysis → danger result → emergency instructions → JSON report**
 
@@ -23,10 +27,10 @@ assets/     # screenshots and static media
 ## MVP Workflow
 
 1. User uploads a field image in frontend dashboard.
-2. Frontend triggers analysis flow (currently mock JSON).
-3. Danger level + hazards + solar score cards render instantly.
+2. Frontend triggers analysis flow (currently mock JSON from backend or demo fallback).
+3. Risk level + hazards + confidence render instantly.
 4. Emergency instruction panel displays prioritized actions.
-5. JSON report is printed for handoff/logging.
+5. JSON report is returned in a fixed API schema for handoff/logging.
 
 ## Frontend Setup
 
@@ -54,13 +58,16 @@ uvicorn app.main:app --reload
 
 ```json
 {
-  "scene_summary": "Flooded electrical street",
-  "danger_level": "high",
-  "main_hazards": ["flood", "electrical risk"],
-  "recommended_actions": ["avoid water", "move uphill"],
-  "solar_assessment": {
-    "solar_score": 82
-  }
+  "risk_level": "HIGH",
+  "hazard_type": "Blocked drainage overflow",
+  "confidence": 0.94,
+  "analysis": "Flood and drainage overflow risk detected.",
+  "alerts": ["Water overflow detected"],
+  "actions": ["Inspect drainage system"],
+  "report": "AI detected blocked drainage causing overflow and flood risk.",
+  "translations": {"en": "Flood risk detected.", "pl": "Wykryto ryzyko powodzi.", "uk": "Виявлено ризик повені."},
+  "offline_mode": true,
+  "model_note": "Mock Gemma-style analysis. Real Gemma multimodal inference not yet enabled."
 }
 ```
 

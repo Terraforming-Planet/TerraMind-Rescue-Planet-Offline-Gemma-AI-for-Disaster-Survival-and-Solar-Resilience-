@@ -21,16 +21,6 @@ const translations = {
   },
 };
 
-const toFrontendAnalysis = (payload) => ({
-  hazardType: payload.hazard_type,
-  riskLevel: payload.risk_level,
-  confidence: payload.confidence,
-  shortAnalysis: payload.analysis,
-  emergencyAlerts: payload.alerts,
-  recommendedActions: payload.actions,
-  report: payload.report,
-});
-
 export default function App() {
   const [language, setLanguage] = useState('en');
   const [selectedDemo, setSelectedDemo] = useState('');
@@ -94,7 +84,7 @@ export default function App() {
       }
 
       const data = await response.json();
-      setAnalysis(toFrontendAnalysis(data));
+      setAnalysis(data);
       setStatus('Backend analysis completed.');
     } catch {
       const fallback = scenarioResults[selectedDemo] ?? scenarioResults['blocked-drainage-overflow'];
@@ -136,10 +126,10 @@ export default function App() {
             <h2 className="mb-4 text-xl font-semibold text-cyan-200">{t.result}</h2>
             {analysis ? (
               <div className="space-y-4 text-sm">
-                <div><span className="text-slate-400">{t.hazard}: </span><span className="font-semibold">{analysis.hazardType}</span></div>
-                <div><span className="text-slate-400">{t.risk}: </span><span className={`rounded-full border px-3 py-1 font-bold ${riskStyles[analysis.riskLevel]}`}>{analysis.riskLevel}</span></div>
+                <div><span className="text-slate-400">{t.hazard}: </span><span className="font-semibold">{analysis.hazard_type}</span></div>
+                <div><span className="text-slate-400">{t.risk}: </span><span className={`rounded-full border px-3 py-1 font-bold ${riskStyles[analysis.risk_level]}`}>{analysis.risk_level}</span></div>
                 <div><span className="text-slate-400">{t.confidence}: </span>{Math.round(analysis.confidence * 100)}%</div>
-                <div><p className="text-slate-400">{t.analysis}</p><p className="mt-1 text-slate-200">{analysis.shortAnalysis}</p></div>
+                <div><p className="text-slate-400">{t.analysis}</p><p className="mt-1 text-slate-200">{analysis.analysis}</p></div>
               </div>
             ) : <p className="text-slate-400">No results yet.</p>}
           </div>
@@ -147,8 +137,8 @@ export default function App() {
 
         {analysis && (
           <section className="grid gap-6 md:grid-cols-3">
-            <article className="rounded-2xl border border-red-500/40 bg-red-950/30 p-5"><h3 className="font-semibold text-red-200">{t.alerts}</h3><ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-red-100">{analysis.emergencyAlerts.map((a) => <li key={a}>{a}</li>)}</ul></article>
-            <article className="rounded-2xl border border-orange-500/40 bg-orange-950/30 p-5"><h3 className="font-semibold text-orange-200">{t.actions}</h3><ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-orange-100">{analysis.recommendedActions.map((a) => <li key={a}>{a}</li>)}</ol></article>
+            <article className="rounded-2xl border border-red-500/40 bg-red-950/30 p-5"><h3 className="font-semibold text-red-200">{t.alerts}</h3><ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-red-100">{analysis.alerts.map((a) => <li key={a}>{a}</li>)}</ul></article>
+            <article className="rounded-2xl border border-orange-500/40 bg-orange-950/30 p-5"><h3 className="font-semibold text-orange-200">{t.actions}</h3><ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-orange-100">{analysis.actions.map((a) => <li key={a}>{a}</li>)}</ol></article>
             <article className="rounded-2xl border border-slate-700 bg-slate-900 p-5"><h3 className="font-semibold">{t.report}</h3><p className="mt-3 text-sm leading-relaxed text-slate-300">{analysis.report}</p></article>
           </section>
         )}
