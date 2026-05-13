@@ -1,11 +1,20 @@
 from typing import List
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+
+
+class TranslationMap(BaseModel):
+    en: str
+    pl: str
+    uk: str
 
 
 class AnalyzeResponse(BaseModel):
-    scene_summary: str
-    danger_level: str
-    main_hazards: List[str]
-    recommended_actions: List[str]
-    solar_assessment: dict = Field(default_factory=dict)
+    risk_level: str
+    hazard_type: str
+    confidence: float
+    analysis: str
+    alerts: List[str]
+    actions: List[str]
+    report: str
+    translations: TranslationMap
