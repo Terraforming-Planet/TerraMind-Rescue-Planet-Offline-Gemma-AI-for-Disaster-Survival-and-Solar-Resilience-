@@ -1,0 +1,2 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'>
+<rect width='1280' height='720' fill='#1f0a0a'/><path d='M0 340 L1280 280 L1280 720 L0 720 Z' fill='#7f1d1d'/><rect x='420' y='300' width='440' height='200' fill='#111827' stroke='#ef4444' stroke-width='8'/><line x1='420' y1='300' x2='860' y2='500' stroke='#ef4444' stroke-width='10'/><line x1='860' y1='300' x2='420' y2='500' stroke='#ef4444' stroke-width='10'/><text x='60' y='110' fill='#fecaca' font-size='58' font-family='Arial'>Blocked Drainage Overflow</text></svg>
