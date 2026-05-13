@@ -48,6 +48,22 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
+## Gemma Adapter Mode
+
+Set `GEMMA_MODE` to control the backend adapter behavior:
+
+- `GEMMA_MODE=mock` (default): always uses the safe local mock service.
+- `GEMMA_MODE=real`: attempts real Gemma integration (placeholder for Day 4), and if unavailable it automatically falls back to mock with:
+  - `offline_mode: true`
+  - `model_note: "Gemma model unavailable, using safe mock fallback."`
+
+Example:
+
+```bash
+cd backend
+GEMMA_MODE=mock uvicorn app.main:app --reload
+```
+
 ## API Example
 
 ### Endpoint
