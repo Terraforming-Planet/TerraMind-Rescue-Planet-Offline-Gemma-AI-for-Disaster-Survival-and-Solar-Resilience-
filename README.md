@@ -99,3 +99,10 @@ Add demo screenshots here:
 - No auth, no database, no cloud dependency (by design).
 - Built to run fully local/offline for resilience scenarios.
 - Clean base structure ready for real Gemma model integration next.
+
+## Day 4 Features
+
+- TXT/JSON/PDF report export from frontend analysis panel.
+- Offline model status endpoint: `GET /model-status`.
+- Visual Risk Map Panel (offline placeholder grid card, no map SDK).
+- Safe mock fallback remains active until real Gemma local model is connected.

@@ -1,7 +1,7 @@
-import os
 from typing import Dict, Any
 
 from app.services.gemma_mock import run_mock_analysis
+from app.services.local_model_test import check_local_model_available
 
 
 def analyze_image_with_gemma(image_bytes: bytes, filename: str) -> Dict[str, Any]:
@@ -14,22 +14,10 @@ def analyze_image_with_gemma(image_bytes: bytes, filename: str) -> Dict[str, Any
     _ = image_bytes
     _ = filename
 
-    gemma_mode = os.getenv("GEMMA_MODE", "mock").strip().lower()
+    model_status = check_local_model_available()
+    result = run_mock_analysis().model_dump()
 
-    if gemma_mode == "mock":
-        return run_mock_analysis().model_dump()
-
-    if gemma_mode == "real":
-        try:
-            # TODO: Integrate Gemma Vision inference call here.
-            # TODO: Add Ollama-backed multimodal inference path here.
-            # TODO: Add llama.cpp local inference path here.
-            raise RuntimeError("Real Gemma model integration is not configured yet.")
-        except Exception:
-            fallback = run_mock_analysis().model_dump()
-            fallback["offline_mode"] = True
-            fallback["model_note"] = "Gemma model unavailable, using safe mock fallback."
-            return fallback
-
-    # Unknown mode should behave safely like mock.
-    return run_mock_analysis().model_dump()
+    # Day 4 MVP: always use safe mock analysis content until real inference is integrated.
+    result["offline_mode"] = not model_status["available"]
+    result["model_note"] = model_status["note"]
+    return result

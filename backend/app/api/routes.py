@@ -2,8 +2,14 @@ from fastapi import APIRouter, File, UploadFile
 
 from app.models.schemas import AnalyzeResponse
 from app.services.gemma_adapter import analyze_image_with_gemma
+from app.services.local_model_test import check_local_model_available
 
 router = APIRouter()
+
+
+@router.get("/model-status")
+async def model_status() -> dict:
+    return check_local_model_available()
 
 
 @router.post("/analyze", response_model=AnalyzeResponse)
